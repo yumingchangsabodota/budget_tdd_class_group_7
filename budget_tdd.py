@@ -1,7 +1,7 @@
 
 import calendar
 
-from typing import Dict, Union
+from typing import Dict, Union, List
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from budget_repo import Budget, BudgetRepo
@@ -14,11 +14,9 @@ class BudgetService:
         self._all_budget: List[Budget] = self._budget_repo.get_all()
 
     def query(self, start:datetime, end:datetime) -> float:
-        # health check with illegal name and no data
+        # health check with illegal date
         if not self.__is_illegal(start, end):
             return 0
-        # if not self.__is_nodata(start, end):
-        #     return 0
         start_year = start.year
         start_month = start.month
         year_month_days = self.__get_days_in_month(start, end)
@@ -39,19 +37,6 @@ class BudgetService:
     # 4. 
     def __is_illegal(self, start:datetime, end:datetime) -> bool:
         return False if start > end else True
-    
-    """
-    def __is_nodata(self, start:datetime, end:datetime) -> bool:
-        if start not in self._all_budget
-            return False
-        elif end not in self._all_budget:
-            return False
-        return True
-    """
-
-        
-    def __calculate_total(self, cross_month_days:dict) -> float:
-        pass
 
     def __get_days_in_month(self, start:datetime, end:datetime) -> Dict[str,int]:
         days_in_month_dict = {}
@@ -67,7 +52,6 @@ class BudgetService:
                 days = end.day
 
             days_in_month_dict[f"{current.year}{current.month:0>2}"] = days
-            #year_month = f"{year}{month:0>2}"
             current += relativedelta(months=1)
         return days_in_month_dict
 
@@ -91,8 +75,5 @@ class BudgetService:
         budget_amount = self.__get_budget_amount(f"{start.year}{start.month:0>2}").daily_budget * days
         return budget_amount
         
-    def __get_cross_month(self):
-        pass
-
     
 
