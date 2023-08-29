@@ -13,14 +13,16 @@ class Budget:
         self.amount = amount
     
     def __get_days_of_month(self) -> int:
+        if self.year_month == 'N/A':
+            return 0
         year = int(self.year_month[:4])
-        print(year)
         month = int(self.year_month[4:])
-        print(month)
         return calendar.monthrange(year, month)[1]
 
     @property
     def daily_budget(self):
+        if self.amount == 0:
+            return 0
         days = self.__get_days_of_month()
         return self.amount/days
 
