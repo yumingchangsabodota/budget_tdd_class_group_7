@@ -6,8 +6,6 @@ class Budget:
         self.amount = amount
     
     def __get_days_of_month(self) -> int:
-        if self.year_month == 'N/A':
-            return 0
         year = int(self.year_month[:4])
         month = int(self.year_month[4:])
         return calendar.monthrange(year, month)[1]
