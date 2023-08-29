@@ -11,14 +11,14 @@ from budget_repo import Budget, BudgetRepo
 class BudgetService:
     def __init__(self, budget_repo: BudgetRepo) -> None:
         self._budget_repo = budget_repo
-        self._all_budget = self._budget_repo.get_all()
+        self._all_budget: List[Budget] = self._budget_repo.get_all()
 
     def query(self, start:datetime, end:datetime) -> float:
         # health check with illegal name and no data
         if not self.__is_illegal(start, end):
             return 0
-        if not self.__is_nodata(start, end):
-            return 0
+        # if not self.__is_nodata(start, end):
+        #     return 0
         start_year = start.year
         start_month = start.month
         year_month_days = self.__get_days_in_month(start, end)
@@ -40,12 +40,14 @@ class BudgetService:
     def __is_illegal(self, start:datetime, end:datetime) -> bool:
         return False if start > end else True
     
+    """
     def __is_nodata(self, start:datetime, end:datetime) -> bool:
-        if start not in self.budget_repo:
+        if start not in self._all_budget
             return False
-        elif end not in self.budget_repo:
+        elif end not in self._all_budget:
             return False
         return True
+    """
 
         
     def __calculate_total(self, cross_month_days:dict) -> float:
