@@ -7,11 +7,14 @@
 from typing import List
 
 class Budget:
-    def __init__(self, year_month:str, amount: float):
+    def __init__(self, year_month:str, amount: int):
         self.year_month = year_month
         self.amount = amount
 
 class BudgetRepo:
+    mock_data = [
+
+    ]
     def get_all(self) -> List[Budget]:
-        pass
+        return self.mock_data
 
