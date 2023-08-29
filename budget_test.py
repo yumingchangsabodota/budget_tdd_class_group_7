@@ -24,7 +24,7 @@ class BudgetTestCase(unittest.TestCase):
 
     def test_get_cross_month(self):
         budget = self.budget_svc.query(start = datetime(2023,7,1), end = datetime(2023,8,7))
-        self.assertEqual(budget, 380.0)
+        self.assertEqual(budget, 1010.0)
 
     def test_get_illegal_date(self):
         budget = self.budget_svc.query(start = datetime(2023,8,7), end = datetime(2023,7,8))

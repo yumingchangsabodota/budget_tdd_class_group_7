@@ -28,7 +28,7 @@ class BudgetService:
             total_budget = self.__get_partial_month_amount(start,end)
         else:
             for year_month, days in year_month_days.items():
-                total_budget += self.__get_budget_amount(year_month).amount * days
+                total_budget += self.__get_budget_amount(year_month).daily_budget * days
 
         return total_budget
     
@@ -62,7 +62,7 @@ class BudgetService:
             current_year_month = f"{current.year}{current.month:0>2}"
 
             if current_year_month == f"{start.year}{start.month:0>2}":
-                days = days_specific_month - start.day 
+                days = days_specific_month - start.day + 1
             if current_year_month == f"{end.year}{end.month:0>2}":
                 days = end.day
 
