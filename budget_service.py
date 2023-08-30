@@ -3,10 +3,8 @@ import calendar
 
 from typing import Dict
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from budget_repo import Budget, BudgetRepo
 from budget_query import BudgetQuery
-
 
 
 class BudgetService:
@@ -18,12 +16,9 @@ class BudgetService:
         budget_query = BudgetQuery(start, end)
         if budget_query.is_illegal:
             return 0
+        query_result = self._budget_repo.get_all(budget_query)
+        return query_result.total_budget
 
-        total_budget = 0
-        for year_month, days in budget_query.query_to_yearmonth_days_dict.items():
-            if year_month in self._all_budget:
-                total_budget += self._all_budget[year_month].daily_budget * days
-        return total_budget
 
 
         

@@ -1,10 +1,14 @@
 
-from datetime import datetime
-
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 class BudgetYearMonth:
     def __init__(self, datetime_instance: datetime):
         self._datetime_instance = datetime_instance
 
+    @property
+    def year_month(self) -> str:
+        return f"{self._datetime_instance.year}{self._datetime_instance.month:0>2}"
+    
     @property
     def year(self) -> int:
         return self._datetime_instance.year
@@ -12,6 +16,14 @@ class BudgetYearMonth:
     @property
     def month(self) -> int:
         return self._datetime_instance.month
+    
+    @property
+    def day(self) -> int:
+        return self._datetime_instance.day
+    
+    def increase_one_month(self):
+        self._datetime_instance += relativedelta(months=1)
+
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

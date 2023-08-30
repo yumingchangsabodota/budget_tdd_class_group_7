@@ -1,7 +1,7 @@
 import calendar
-
+from typing import Union
 class Budget:
-    def __init__(self, year_month:str, amount: int):
+    def __init__(self, year_month:Union[str, None] = '', amount: int = 0):
         self.year_month = year_month
         self.amount = amount
     
